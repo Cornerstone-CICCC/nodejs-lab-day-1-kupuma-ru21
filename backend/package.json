@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "dist/src.js",
   "scripts": {
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon dist/server.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:nodemon": "nodemon dist/server.js",
+    "compile:watch": "pnpm tsc --watch"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +17,14 @@
     "cookie-session": "^2.1.0",
     "cors": "^2.8.5",
     "express": "^4.21.1",
-    "uuid": "^11.0.2"
+    "uuid": "^11.0.2",
+    "@types/body-parser": "^1.19.5",
+    "@types/cookie-parser": "^1.4.7",
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "nodemon": "^3.1.7",
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
