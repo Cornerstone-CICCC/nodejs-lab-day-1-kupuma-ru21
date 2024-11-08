@@ -64,6 +64,7 @@ const HMAC_SHA256 = (key: string, data: string) => {
 };
 
 const decodeBase64 = (b64: string) => {
+  // Buffer creates a string which can take an optional encoding parameter to specify how to encode the string.
   const jsonStr = Buffer.from(b64, "base64").toString("utf-8");
   return JSON.parse(jsonStr);
 };
