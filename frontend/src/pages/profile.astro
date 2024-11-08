@@ -11,6 +11,7 @@
     <title>Astro</title>
   </head>
   <body>
+    <button id="logout">Logout</button>
     <h1>Profile</h1>
     <div id="container"></div>
   </body>
@@ -52,4 +53,15 @@
       <p>lastName: ${result.user.lastName}</p>
     `;
   });
+
+  const logoutButton = document.getElementById("logout");
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      document.cookie =
+        "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      const anchor = document.createElement("a");
+      anchor.href = "/login";
+      anchor.click();
+    });
+  }
 </script>
