@@ -52,6 +52,7 @@ export const getUserById = (
 
 const encodeBase64 = (json: Record<string, string | number>) => {
   const jsonStr = JSON.stringify(json);
+  // Buffer creates a string which can take an optional encoding parameter to specify how to encode the string.
   const jsonB64 = Buffer.from(jsonStr).toString("base64");
   const jsonB64NoPadding = jsonB64.replace(/={1,2}$/, "");
   return jsonB64NoPadding;
@@ -64,7 +65,6 @@ const HMAC_SHA256 = (key: string, data: string) => {
 };
 
 const decodeBase64 = (b64: string) => {
-  // Buffer creates a string which can take an optional encoding parameter to specify how to encode the string.
   const jsonStr = Buffer.from(b64, "base64").toString("utf-8");
   return JSON.parse(jsonStr);
 };
