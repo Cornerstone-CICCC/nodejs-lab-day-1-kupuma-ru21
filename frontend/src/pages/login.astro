@@ -40,4 +40,28 @@
       anchor.click();
     }
   });
+
+  const response = await fetch("http://localhost:8080/profile", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${document.cookie}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  const result: {
+    user: {
+      id: string;
+      userName: string;
+      password: string;
+      firstName: string;
+      lastName: string;
+    };
+  } = await response.json();
+
+  if (result.user) {
+    const anchor = document.createElement("a");
+    anchor.href = "/profile";
+    anchor.click();
+  }
 </script>
