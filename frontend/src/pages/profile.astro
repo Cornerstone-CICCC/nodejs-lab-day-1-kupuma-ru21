@@ -34,21 +34,22 @@
         firstName: string;
         lastName: string;
       };
+      error: string;
     } = await response.json();
-    console.log(result);
-    if (!result.user) {
+
+    if (result.error) {
       const anchor = document.createElement("a");
       anchor.href = "/login";
       anchor.click();
     }
+
     const container = document.getElementById("container");
     if (!container) return;
     container.innerHTML = `
-    <p>id: ${result.user.id}</p>
-    <p>userName: ${result.user.userName}</p>
-    <p>password: ${result.user.password}</p>
-    <p>firstName: ${result.user.firstName}</p>
-    <p>lastName: ${result.user.lastName}</p>
-  `;
+      <p>userName: ${result.user.userName}</p>
+      <p>password: ${result.user.password}</p>
+      <p>firstName: ${result.user.firstName}</p>
+      <p>lastName: ${result.user.lastName}</p>
+    `;
   });
 </script>

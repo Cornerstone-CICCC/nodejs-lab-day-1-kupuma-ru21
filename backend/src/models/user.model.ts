@@ -18,9 +18,13 @@ export const findByUsername = (body: Request["body"], users: User[]) => {
   console.log("users", users);
   console.log("user", user);
 
-  if (user === undefined) return { user: null, error: "User not found" };
+  if (user === undefined) return null;
   if (user.password !== body.password) {
-    return { user: null, error: "Password is incorrect" };
+    return null;
   }
-  return { user, error: null };
+  return user;
+};
+
+export const findById = (id: string, users: User[]) => {
+  return users.find((user) => user.id === id) ?? null;
 };

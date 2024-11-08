@@ -10,38 +10,20 @@ pageRouter.post("/signup", (req, res) => {
     res.send({ success: true });
 });
 pageRouter.post("/login", (req, res) => {
-    const { user, error } = (0, user_controller_1.getUserByUsername)(req.body, users);
-    if (user) {
+    const { user, jwt } = (0, user_controller_1.getUserByUsername)(req.body, users);
+    if (user === null) {
         res.setHeader("Content-Type", "application/json");
-        // TODO: change userName to jwt token
-        res.send({ success: true, userName: user.userName });
+        res.send({ success: false });
+        return;
     }
-    if (error) {
-        res.setHeader("Content-Type", "application/json");
-        res.send({ success: false, error });
-    }
+    res.setHeader("Content-Type", "application/json");
+    res.send({ success: true, jwt });
 });
 pageRouter.get("/profile", (req, res) => {
-    const { authorization } = req.headers;
-    if (!authorization) {
+    const { user, error } = (0, user_controller_1.getUserById)(req.headers.authorization, users);
+    if (error) {
         res.setHeader("Content-Type", "application/json");
-        res.send({ user: null, error: "No authorization header" });
-        return;
-    }
-    const bearer = authorization.replace("Bearer", "").trim();
-    if (bearer === "") {
-        res.setHeader("Content-Type", "application/json");
-        res.send({ user: null, error: "No token" });
-        return;
-    }
-    console.log("bearer", bearer);
-    const token = bearer.replace("token=", "").trim();
-    console.log("token", token);
-    const user = users.find((u) => u.userName === token);
-    console.log("user", user);
-    if (!user) {
-        res.setHeader("Content-Type", "application/json");
-        res.send({ user: null, error: "No user found" });
+        res.send({ user: null, error });
         return;
     }
     res.setHeader("Content-Type", "application/json");

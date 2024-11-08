@@ -32,10 +32,9 @@
       body: JSON.stringify(data),
     });
 
-    const result: { success: boolean; userName: string } =
-      await response.json();
+    const result: { success: boolean; jwt: string } = await response.json();
     if (result.success) {
-      document.cookie = `token=${result.userName}`;
+      document.cookie = `token=${result.jwt}`;
       const anchor = document.createElement("a");
       anchor.href = "/profile";
       anchor.click();

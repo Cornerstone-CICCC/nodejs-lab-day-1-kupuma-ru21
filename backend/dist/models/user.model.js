@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findByUsername = exports.createUser = void 0;
+exports.findById = exports.findByUsername = exports.createUser = void 0;
 const uuid_1 = require("uuid");
 const createUser = (body) => {
     const user = {
@@ -18,10 +18,15 @@ const findByUsername = (body, users) => {
     console.log("users", users);
     console.log("user", user);
     if (user === undefined)
-        return { user: null, error: "User not found" };
+        return null;
     if (user.password !== body.password) {
-        return { user: null, error: "Password is incorrect" };
+        return null;
     }
-    return { user, error: null };
+    return user;
 };
 exports.findByUsername = findByUsername;
+const findById = (id, users) => {
+    var _a;
+    return (_a = users.find((user) => user.id === id)) !== null && _a !== void 0 ? _a : null;
+};
+exports.findById = findById;
