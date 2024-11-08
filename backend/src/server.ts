@@ -14,6 +14,7 @@ const port = 8080;
 app.use(cors({ origin: "http://localhost:4321", credentials: true }));
 app.use(cookieParser(process.env.COOKIE_KEY));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use("/", pageRouter);
 app.use(express.static(path.join(__dirname, "public")));

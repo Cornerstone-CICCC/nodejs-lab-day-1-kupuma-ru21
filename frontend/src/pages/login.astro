@@ -11,32 +11,33 @@
     <title>Astro</title>
   </head>
   <body>
-    <h1>Singup</h1>
-    <form id="singup">
+    <h1>Login</h1>
+    <form id="login">
       <input type="text" name="userName" placeholder="userName" />
       <input type="password" name="password" placeholder="password" />
-      <input type="text" name="firstName" placeholder="firstName" />
-      <input type="text" name="lastName" placeholder="lastName" />
       <button type="submit">submit</button>
     </form>
   </body>
 </html>
 
 <script>
-  const form = document.getElementById("singup") as HTMLFormElement;
+  const form = document.getElementById("login") as HTMLFormElement;
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    const response = await fetch("http://localhost:8080/signup", {
+    const response = await fetch("http://localhost:8080/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    const result: { success: boolean } = await response.json();
+
+    const result: { success: boolean; userName: string } =
+      await response.json();
     if (result.success) {
+      document.cookie = `token=${result.userName}`;
       const anchor = document.createElement("a");
-      anchor.href = "/login";
+      anchor.href = "/profile";
       anchor.click();
     }
   });

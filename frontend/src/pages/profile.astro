@@ -1,0 +1,54 @@
+---
+
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <h1>Profile</h1>
+    <div id="container"></div>
+  </body>
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const response = await fetch("http://localhost:8080/profile", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${document.cookie}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result: {
+      user: {
+        id: string;
+        userName: string;
+        password: string;
+        firstName: string;
+        lastName: string;
+      };
+    } = await response.json();
+    console.log(result);
+    if (!result.user) {
+      const anchor = document.createElement("a");
+      anchor.href = "/login";
+      anchor.click();
+    }
+    const container = document.getElementById("container");
+    if (!container) return;
+    container.innerHTML = `
+    <p>id: ${result.user.id}</p>
+    <p>userName: ${result.user.userName}</p>
+    <p>password: ${result.user.password}</p>
+    <p>firstName: ${result.user.firstName}</p>
+    <p>lastName: ${result.user.lastName}</p>
+  `;
+  });
+</script>

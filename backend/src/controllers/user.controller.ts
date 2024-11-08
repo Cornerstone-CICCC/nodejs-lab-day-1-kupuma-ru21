@@ -1,6 +1,11 @@
 import { Request } from "express";
-import { createUser } from "../models/user.model";
+import { createUser, findByUsername } from "../models/user.model";
+import { User } from "../routes/user.routes";
 
-export const addUser = (req: Request) => {
-  createUser(req);
+export const addUser = (body: Request["body"]) => {
+  return createUser(body);
+};
+
+export const getUserByUsername = (body: Request["body"], users: User[]) => {
+  return findByUsername(body, users);
 };
